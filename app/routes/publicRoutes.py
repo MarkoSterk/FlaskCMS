@@ -5,7 +5,14 @@ from ..models.productModel import Product
 
 publicRoutes = Blueprint('publicRoutes', __name__)
 
-@publicRoutes.route('/products', methods=['GET'])
+
+@publicRoutes.route('/', methods=['GET'])
 def index():
+    products = Product.findMany({'quantity': {'$gt': 0}, 'active': True})
+    return render_template('public/products.html', products = products)
+
+
+@publicRoutes.route('/products', methods=['GET'])
+def products():
     products = Product.findMany({'quantity': {'$gt': 0}, 'active': True})
     return render_template('public/products.html', products = products)
