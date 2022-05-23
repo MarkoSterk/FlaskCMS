@@ -20,12 +20,12 @@ def createOne():
         data['image']=saveImageFiles(request.files.getlist('image'), folder='users', resize = (150, 200))[0]
 
     user = User(data)
-    user.save(pre_hooks=[user.hashpw])
+    ##user.save(pre_hooks=[user.hashpw])
     
     return jsonify({
         'status': 'success',
         'data': [vars(user)],
-        'message': 'User signed up successfully.'
+        'message': 'Registrations are disabled.'
     }), 201
 
 

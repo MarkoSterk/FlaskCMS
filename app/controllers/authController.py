@@ -49,7 +49,7 @@ def logout():
 
 
 @jwt.expired_token_loader
-def mexpiredTokenCallback(jwt_header, jwt_payload):
+def expiredTokenCallback(jwt_header, jwt_payload):
     return jsonify({
         'status': 'error',
         'message': 'Your access token has expired. Please login again',
