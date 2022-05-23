@@ -39,7 +39,7 @@ def get_publishable_key():
 
 
 def create_checkout_session():
-    domain_url = "http://localhost:3000"
+    domain_url = "https://full-flask-cms.herokuapp.com"
     stripe.api_key=current_app.config['STRIPE_SECRET_KEY']
 
     data = request.get_json()
@@ -55,8 +55,8 @@ def create_checkout_session():
 
         # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
         checkout_session = stripe.checkout.Session.create(
-            success_url=domain_url + 'https://full-flask-cms.herokuapp.com/api/v1/payments/success?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url=domain_url + 'https://full-flask-cms.herokuapp.com/api/v1/payments/cancelled',
+            success_url=domain_url + '/api/v1/payments/success?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url=domain_url + '/api/v1/payments/cancelled',
             payment_method_types=["card"],
             mode="payment",
             line_items=[
