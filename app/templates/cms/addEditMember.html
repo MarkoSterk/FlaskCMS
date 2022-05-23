@@ -1,0 +1,95 @@
+{% extends 'cms/_base.html' %}
+
+
+{% block content %}
+<!--cards-->
+<section>
+  <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+    <div class="row pt-md-5 mt-md-3 ml-3 mb-5">
+      <div class="container register-form">
+        <div class="form">
+            <div class="note">
+                {% if member %}
+                  <p>Edit member information</p>
+                {% else %}
+                  <p>Add member information</p>
+                {% endif %}
+            </div>
+
+            <form id="memberForm">
+              <div class="form-content">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <input type="text" id="name" class="form-control" placeholder="Full name *" value={% if member %} "{{member.name}}" {% endif %}>
+                          </div>
+                          <div class="form-group">
+                            <input type="text" id="education" class="form-control" placeholder="Education *" value={% if member %} "{{member.education}}" {% endif %}>
+                          </div>
+                          <div class="form-group">
+                              <input type="text" id="employment" class="form-control" placeholder="Employment *" value={% if member %} "{{member.employment}}" {% endif %}>
+                          </div>
+                          <div class="form-group">
+                            <input type="text" id="email" class="form-control" placeholder="Email address *" value={% if member %} "{{member.email}}" {% endif %}>
+                          </div>
+                          <div class="form-group">
+                            <input type="text" id="researchInterests" class="form-control" placeholder="Research interests *" value={% if member %} "{{member.researchInterests}}" {% endif %}>
+                          </div>
+                          <div class="form-group">
+                            <label for="shortDescription" class="text-muted">Short description *</label>
+                            <textarea class="form-control" id="shortDescription" rows="3">{% if member %}{{member.shortDescription}}{% endif %}</textarea>
+                          </div>
+                          <p class="text-muted small">* required fields</p>
+                          {% if member %}
+                            <button type="button" class="btn btn-primary" id="submitEditMemberForm" data-member-id={{ member._id }}>Edit</button>
+                          {% else %}
+                            <button type="button" class="btn btn-primary" id="submitMemberForm">Submit</button>
+                          {% endif %}
+                          <button type="button" class="btn btn-warning" id="resetMemberForm">Reset</button>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <input type="text" class="form-control" id="sicris" placeholder="SICRIS" 
+                              value={% if member %} {% if member.sicris %} "{{ member.sicris }}" {% endif %} {% endif %}>
+                          </div>
+                          <div class="form-group">
+                            <input type="text" class="form-control" id="googleScholar" placeholder="Google Scholar" 
+                              value={% if member %} {% if member.googleScholar %} "{{ member.googleScholar }}" {% endif %} {% endif %}>
+                          </div>
+                          <div class="form-group">
+                            <input type="text" class="form-control" id="linkedin" placeholder="LinkedIn" 
+                              value={% if member %} {% if member.linkedin %} "{{ member.linkedin }}" {% endif %} {% endif %}>
+                          </div>
+                          <div class="form-group">
+                            <input type="text" class="form-control" id="facebook" placeholder="Facebook" 
+                              value={% if member %} {% if member.facebook %} "{{ member.facebook }}" {% endif %} {% endif %}>
+                          </div>
+                          <div class="form-group">
+                            <input type="text" class="form-control" id="instagram" placeholder="Instagram" 
+                              value={% if member %} {% if member.instagram %} "{{ member.instagram }}" {% endif %} {% endif %}>
+                          </div>
+                          <div class="form-group">
+                            <label class="text-muted" for="image">Member image</label>
+                            <div class="text-center mt-2" id="previewBlock" style={% if not member %}"display: none"{% endif %}>
+                              <img class="img-thumbnail d-block m-auto" width="200" id="previewImage" src={% if member %}{{ url_for('static', filename='images/users/') + member.image }}{% endif %}>
+                              <button type="button" class="btn btn-secondary mt-2" id="removeImage">Remove image</button>
+                            </div>
+                            <input type="file" class="form-control" {% if member %}style="display: none;"{% endif %} id="image" name="image" accept="image/png, image/jpeg">
+                          </div>
+                      </div>
+                  </div>
+                  
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="module" src="{{ url_for('static', filename='js/cms/member.js') }}"></script>
+{% endblock content %}
+
+
+
+

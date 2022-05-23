@@ -1,0 +1,43 @@
+{% extends 'cms/_base.html' %}
+
+
+{% block content %}
+<!--cards-->
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+        <div class="row pt-md-5 mt-md-3 ml-3 mb-5">
+          
+          {% for member in members %}
+            <div class="col-xl-3 col-sm-6 p-2" id="memberCard_{{ member._id }}">
+              <div class="card card-common">
+                <img src="{{ url_for('static', filename='images/users/') + member.image }}" class="card-img-top" alt="member image">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    {{ member.name }}
+                    {% if member.active == False %}
+                      <p class="text-muted d-inline small">Inactive</p>
+                    {% endif %}
+                  </h5>
+                  <p class="card-text">{{ member.shortDescription }}</p>
+                  <a href="{{ url_for('cmsRoutes.editMember', memberId=member._id) }}" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Edit</a>
+                  <a class="btn btn-danger text-light deleteMemberBtn" data-item-id={{ member._id }} data-resource="users" data-toggle="modal" data-target="#deleteItemModal"><i class="fas fa-trash mr-2"></i>Delete</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end of cards-->
+<script type="module" src="{{ url_for('static', filename='js/cms/member.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/cms/deleteItem.js') }}"></script>
+{% endblock content %}
+
+
+
+

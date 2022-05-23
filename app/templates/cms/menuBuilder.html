@@ -1,0 +1,70 @@
+{% extends 'cms/_base.html' %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cms/menu.css') }}">
+<!--change avatar and change password-->
+<section>
+  <div class="container-fluid">
+    <div class="row my-5 mx-2">
+      <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+        <div class="row align-items-top">
+
+          <div class="card col-xl-6 col-12">
+            <h5 class="text-muted text-center my-3">Add Element</h3>
+              <form id="addMenuElement">
+                <div class="form-group">
+                  <label for="elemName">Link name:</label>
+                  <input type="text" class="form-control" id="elemName" name="elemName">
+                </div>
+
+                <div class="from-group">
+                  <label for="elemLink">Link address:</label>
+                  <input type="text" class="form-control" id="elemLink" name="elemLink">
+                </div>
+
+                <div class="form-group">
+                  <select name="generatedLinks" id="generatedLinks" class="form-control">
+                    <option value="0">Select link from list</option>
+                    <option value="1">Home</option>
+                    <option value="2">About</option>
+                    <option value="1">Posts</option>
+                    <option value="1">Contact</option>
+                  </select>
+                </div>
+                <div class="form-check form-group">
+                  <input class="form-check-input" type="checkbox" value="_blank" id="linkTarget">
+                  <label class="form-check-label" for="linkTarget">
+                    Open link in new window
+                  </label>
+                </div>
+                <div class="form-group">
+                  <button type="button" class="btn btn-primary" id="addElementBtn">Add element</button>
+                </div>
+              </form>
+          </div>
+
+          <div class="card col-xl-6 col-12 mb-4 mb-xl-0">
+            <h5 class="text-muted text-center my-3">Menu Tree</h3>
+            <div id="menuTree" dropzone="true" class="dropzone pb-5 m-1 p-1 border border-muted h-100 rounded bg-light">
+
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn btn-primary m-1" id="saveMenuStructure">Save menu</button>
+              <button type="button" class="btn btn-danger m-1" id="deleteMenuStructure">Delete menu</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end of tables-->
+
+<script type="module" src="{{ url_for('static', filename='js/cms/menu.js') }}"></script>
+{% endblock content %}
+
+
+
+

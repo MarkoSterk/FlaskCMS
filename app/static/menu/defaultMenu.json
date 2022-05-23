@@ -1,0 +1,28 @@
+{
+    "name": "default",
+    "dateChanged": "14-05-2022 17:06:14",
+    "userId": "87d1275cfe54857e9f983b86cc531bda",
+    "structure": [
+        {
+            "parentId": "topLevel",
+            "itemId": "1652547930625",
+            "name": "Home",
+            "link": "/",
+            "linkTarget": "_self"
+        },
+        {
+            "parentId": "topLevel",
+            "itemId": "1652547937509",
+            "name": "About",
+            "link": "/about",
+            "linkTarget": "_self"
+        },
+        {
+            "parentId": "topLevel",
+            "itemId": "1652547947177",
+            "name": "Contact",
+            "link": "/contact",
+            "linkTarget": "_self"
+        }
+    ]
+}

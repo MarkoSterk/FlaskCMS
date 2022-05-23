@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment {{payment._id}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        <h5>Payment ID:</h5>
+        <p class="text-muted">{{ payment.purchaseId | safe }}</p>
+
+        <h5>Client eMail:</h5>
+        <p class="text-muted">{{payment.client | safe }}</p>
+
+        <h5>Date of Purchase:</h5>
+        <p class="text-muted">{{payment._createdAt | safe }}</p>
+
+        <h5>Product name:</h5>
+        <p class="text-muted">{{payment.productId.name | safe }}</p>
+
+        <h5>Product description</h5>
+        <p class="text-muted">{{payment.productId.text | safe }}</p>
+
+        <h5>Amount Total:</h5>
+        <p class="text-muted">{{payment.amountTotal | safe }}</p>
+
+        <h5>Currency:</h5>
+        <p class="text-muted">{{payment.currency | safe }}</p>
+    </div>
+</body>
+</html>

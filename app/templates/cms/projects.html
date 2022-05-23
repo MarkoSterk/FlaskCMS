@@ -1,0 +1,51 @@
+{% extends 'cms/_base.html' %}
+
+
+{% block content %}
+<!--cards-->
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+        <div class="row pt-md-5 mt-md-3 ml-3 mb-5" id="postListDiv" data-form-type="projects">
+          
+          {% for project in projects %}
+            <div class="col-xl-4 col-sm-12 p-2" id="card_{{ project._id }}">
+              <div class="card card-common">
+                <p class="small text-secondary mt-2 ml-2 postDate">{{ project._createdAt }}</p>
+                {% if project.coverImage %}
+                  <img src="{{ url_for('static', filename='images/projects/') + project.coverImage }}" class="card-img-top" alt="project image">
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">
+                    {{ project.title | truncate(100) | safe }}
+                  </h5>
+                  <h5>
+                    {{ project.titleSlo | truncate(100) | safe }}
+                    {% if project.active == False %}
+                      <p class="text-muted d-inline small">Inactive</p>
+                    {% endif %}
+                  </h5>
+                  <p class="card-text">Leader: {{ project.projectLeader }}</p>
+                  <p class="card-text small">From {{ project.startDate }} to {{ project.endDate }}</p>
+                  <a href="/cms/project/{{project._id}}" class="btn btn-primary btn-sm"><i class="fas fa-edit mr-2"></i>Edit</a>
+                  <a class="btn btn-danger text-light deleteBtn btn-sm" data-item-id={{ project._id }} data-resource="projects" data-toggle="modal" data-target="#deleteItemModal"><i class="fas fa-trash mr-2"></i>Delete</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end of cards-->
+<script type="module" src="{{ url_for('static', filename='js/cms/infiniteLoad.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/cms/postCRUD.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/cms/deleteItem.js') }}"></script>
+{% endblock content %}
+
+
+
+

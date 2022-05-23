@@ -1,0 +1,79 @@
+{% extends 'cms/_base.html' %}
+
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<!--cards-->
+<section>
+  <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+    <div class="row pt-md-5 mt-md-3 ml-3 mb-5">
+      <div class="container register-form">
+        <div class="form">
+            <form id="postForm">
+              <div class="form-content">
+                  <div class="row">
+                      <div class="col">
+                          <div class="form-group">
+                            <label class="text-muted" for="coverImage">Preview Cover Image</label>
+                            <div class="text-center mt-2" id="previewBlock" {% if (post and post.coverImage) %}style="display: block"{% else %}style="display: none"{% endif %}>
+                              <img class="img-thumbnail d-block m-auto" width="100%" id="previewImage" {% if post %}{% if post.coverImage %}src="{{ url_for('static', filename='images/posts/') + post.coverImage }}"{% endif %}{% endif %}>
+                              <button type="button" class="btn btn-secondary mt-2 btn-sm" id="removeImage">Remove image</button>
+                            </div>
+                            <input type="file" class="form-control" {% if post %}{% if post.coverImage %}style="display: none;"{% endif %}{% endif %} id="coverImage" name="coverImage" accept="image/png, image/jpeg">
+                          </div>
+                          <div class="form-group form-group-lg">
+                              <input type="text" id="title" class="form-control p-3" placeholder="Post title *" value={% if post %} "{{post.title}}" {% endif %}>
+                          </div>
+                          <div class="form-group">
+                            <label class="text-muted">Category</label><br>
+                            {% for category in categories %}
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="category_{{ category }}" value="{{ category }}" {% if post %}{% if category in post.category %}checked{% endif %}{% endif %}>
+                                <label class="form-check-label" for="category_{{ category }}">{{ category }}</label>
+                              </div>
+                            {% endfor %}
+                          </div>
+                          <div class="form-group">
+                            <textarea class="summernote form-control" id="text" name="editordata">{% if post %} {{ post.text }} {% endif %}</textarea>
+                          </div>
+                          <p class="text-muted small">* required fields</p>
+                          {% if post %}
+                            <button type="button" class="btn btn-primary" id="submitEditForm" data-post-id={{ post._id }}>Edit</button>
+                          {% else %}
+                            <button type="button" class="btn btn-primary" id="submitForm">Submit</button>
+                          {% endif %}
+                          <button type="button" class="btn btn-warning" id="resetForm">Reset</button>
+                      </div>
+                  </div>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="module" src="{{ url_for('static', filename='js/cms/postCRUD.js') }}"></script>
+<script>
+  $('#text').summernote({
+    placeholder: 'Post text *',
+    tabsize: 2,
+    height: 400,
+    toolbar: [
+      ['style', ['style']],
+      ['font', ['bold', 'underline', 'clear']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['table', ['table']],
+      ['insert', ['link', 'picture', 'video']],
+      ['view', ['fullscreen', 'codeview', 'help']]
+    ]
+  });
+</script>
+{% endblock content %}
+
+
+
+

@@ -1,0 +1,173 @@
+{% extends 'cms/_base.html' %}
+
+
+{% macro stat_card(type, N, icon, iconColor) %}
+  <div class="col-xl-2 col-lg-4 col-md-6 col-sm-10 p-2">
+    <div class="card card-common">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <i class="{{ icon }} fa-2x {{ iconColor }}"></i>
+          <div class="text-right text-secondary">
+            <h5># {{ type }}</h5>
+            <h3>{{ N }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endmacro %}
+
+{% block content %}
+
+<!--cards-->
+<section>
+  <div class="container-fluid">
+    <div class="row align-items-top justify-content-between">
+      <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+        <div class="row pt-md-5 mt-md-3 ml-3 mb-5 mr-3">
+
+          {{ stat_card('Projects', projectN, 'fas fa-project-diagram', 'text-warning') }}
+          {{ stat_card('Publications', publicationN, 'fas fa-paperclip', 'text-success') }}
+          {{ stat_card('Posts', postN, 'fas fa-paper-plane', 'text-danger') }}
+          {{ stat_card('Comments', commentN, 'fas fa-comment', 'text-secondary') }}
+          {{ stat_card('Members', memberN, 'fas fa-users', 'text-info') }}
+          {{ stat_card('Galleries', galleryN, 'fas fa-images', 'text-secondary') }}
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end of cards-->
+
+<!--tables-->
+<section>
+  <div class="container-fluid">
+    <div class="row mb-5">
+      <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+        <div class="row align-items-top">
+          <div class="col-xl-6 col-12 mb-4 mb-xl-0">
+            <h3 class="text-muted text-center mb-3">Recent Posts</h3>
+            <table class="table table-striped table-hover bg-light text-center">
+              <thead>
+                <tr class="text-muted">
+                  <th>#</th>
+                  <th>Author</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for post in posts %}
+                  <tr>
+                    <th>{{ loop.index }}</th>
+                    <td>{{ post.authorName }}</td>
+                    <td>{{ post.title | truncate(150) }}</td>
+                    <td>{% for cat in post.category %} {{ cat }} {% endfor %}</td>
+                    <td><a href="/cms/post/{{ post._id }}" class="btn btn-info btn-sm">Open</a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-xl-6 col-12">
+            <h3 class="text-muted text-center mb-3">Recent Publications</h3>
+            <table class="table table-dark table-hover text-center">
+              <thead>
+                <tr class="text-muted">
+                  <th>#</th>
+                  <th>Lead Author</th>
+                  <th>Title</th>
+                  <th>Journal</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for publication in publications %}
+                  <tr>
+                    <th>{{ loop.index }}</th>
+                    <td>{{ publication.authors[0] }}</td>
+                    <td>{{ publication.title | truncate(150) }}</td>
+                    <td>{{ publication.journal }}</td>
+                    <td><a href="/cms/publication/{{ publication._id }}" class="btn btn-success btn-sm">Open</a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end of tables-->
+
+<!--tables-->
+<section>
+  <div class="container-fluid">
+    <div class="row mb-5">
+      <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+        <div class="row align-items-top">
+
+          <div class="col-xl-6 col-12">
+            <h3 class="text-muted text-center mb-3">Recent Projects</h3>
+            <table class="table table-dark table-hover text-center">
+              <thead>
+                <tr class="text-muted">
+                  <th>#</th>
+                  <th>Project Leader</th>
+                  <th>Title</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for project in projects %}
+                  <tr>
+                    <th>{{ loop.index }}</th>
+                    <td>{{ project.projectLeader }}</td>
+                    <td>{{ project.title }}</td>
+                    <td><a href="/cms/project/{{ project._id }}" class="btn btn-success btn-sm">Open</a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-xl-6 col-12 mb-4 mb-xl-0">
+            <h3 class="text-muted text-center mb-3">Recent Galleries</h3>
+            <table class="table table-striped table-hover bg-light text-center">
+              <thead>
+                <tr class="text-muted">
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for gallery in galleries %}
+                  <tr>
+                    <th>{{ loop.index }}</th>
+                    <td>{{ gallery.title }}</td>
+                    <td>{{ gallery.text | truncate(100) | safe }}</td>
+                    <td><a href="/cms/gallery/{{ gallery._id }}" class="btn btn-info btn-sm">Open</a></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end of tables-->
+
+{% endblock content %}
+
+
+
+

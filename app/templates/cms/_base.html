@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="title icon" href="{{ url_for('static', filename='images/cms/images/title-img.png') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cms/style.css') }}">
+
+    <!--axios-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    
+    <!--navbar-->
+    <nav class="navbar navbar-expand-md navbar-light">
+      <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse" data-target="#myNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <div class="container-fluid">
+          <div class="row">
+            <!--sidebar-->
+            <div class="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
+              <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 button-border">Flask CMS</a>
+              <div class="bottom-border pb-3 text-center">
+                <img id="userProfileImage" src="{{ url_for('static', filename='images/users/')+user.image }}" width="150" class="rounded d-block m-auto">
+                <a href="#" class="text-white" id="currentUserName" data-user-id={{ user._id }}>{{ user.name }}</a>
+              </div>
+              
+              <ul class="navbar-nav flex-column mt-4">
+
+                <button class="btn btn-link text-light d-block w-100 text-left p-2 m-2" type="button">
+                  <a class="text-light" href="/cms"><i class="fas fa-home fa-lg text-info mr-3 text-light"></i>Dashboard</a>
+                </button>
+
+                <div class="dropdown">
+                  <button class="btn btn-link text-light d-block w-100 text-left p-2 m-2 dropdown-toggle " type="button" id="membersMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-users fa-lg text-info mr-3 text-light"></i>Team Members
+                  </button>
+                  <div class="dropdown-menu w-100" aria-labelledby="membersMenuBtn">
+                    <a class="dropdown-item" href="/cms/members">All Members</a>
+                    <a class="dropdown-item" href="/cms/member">Add Member</a>
+                  </div>
+                </div>
+
+                <div class="dropdown">
+                  <button class="btn btn-link text-light d-block w-100 text-left p-2 m-2 dropdown-toggle " type="button" id="postsMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-paper-plane fa-lg text-info mr-3 text-light"></i>Posts
+                  </button>
+                  <div class="dropdown-menu w-100" aria-labelledby="postsMenuBtn">
+                    <a class="dropdown-item" href="/cms/posts">All Posts</a>
+                    <a class="dropdown-item" href="/cms/post">Add Post</a>
+                  </div>
+                </div>
+
+                <div class="dropdown">
+                  <button class="btn btn-link text-light d-block w-100 text-left p-2 m-2 dropdown-toggle " type="button" id="publicationsMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-paperclip fa-lg text-info mr-3 text-light"></i>Publications
+                  </button>
+                  <div class="dropdown-menu w-100" aria-labelledby="publicationsMenuBtn">
+                    <a class="dropdown-item" href="/cms/publications">All Publications</a>
+                    <a class="dropdown-item" href="/cms/publication">Add Publication</a>
+                  </div>
+                </div>
+
+                <div class="dropdown">
+                  <button class="btn btn-link text-light d-block w-100 text-left p-2 m-2 dropdown-toggle " type="button" id="projectsMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-project-diagram fa-lg text-info mr-3 text-light"></i>Projects
+                  </button>
+                  <div class="dropdown-menu w-100" aria-labelledby="projectsMenuBtn">
+                    <a class="dropdown-item" href="/cms/projects">All Projects</a>
+                    <a class="dropdown-item" href="/cms/project">Add Project</a>
+                  </div>
+                </div>
+
+                <div class="dropdown">
+                  <button class="btn btn-link text-light d-block w-100 text-left p-2 m-2 dropdown-toggle " type="button" id="mediaMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-folder fa-lg text-info mr-3 text-light"></i>Media
+                  </button>
+                  <div class="dropdown-menu w-100" aria-labelledby="mediaMenuBtn">
+                    <a class="dropdown-item" href="/cms/galleries">All Galleries</a>
+                    <a class="dropdown-item" href="/cms/gallery">Add Gallery</a>
+                  </div>
+                </div>
+
+                <div class="dropdown">
+                  <button class="btn btn-link text-light d-block w-100 text-left p-2 m-2 dropdown-toggle " type="button" id="marketMenuBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-shopping-cart fa-lg text-info mr-3 text-light"></i>Market
+                  </button>
+                  <div class="dropdown-menu w-100" aria-labelledby="marketMenuBtn">
+                    <a class="dropdown-item" href="/cms/products">All Products</a>
+                    <a class="dropdown-item" href="/cms/product">Add Product</a>
+                    <a class="dropdown-item" href="/cms/payments">Payments</a>
+                  </div>
+                </div>
+
+                <button class="btn btn-link text-light d-block w-100 text-left p-2 m-2" type="button">
+                  <a class="text-light" href="/cms/menu"><i class="fas fa-bars fa-lg text-info mr-3 text-light"></i>Menu Builder</a>
+                </button>
+
+                <button class="btn btn-link text-light d-block w-100 text-left p-2 m-2" type="button">
+                  <a class="text-light" href="/cms/settings"><i class="fas fa-wrench fa-lg text-info mr-3 text-light"></i>Settings</a>
+                </button>
+
+              </ul>
+            </div>
+
+
+            <!--end of sidebar-->
+            <!--top navbar-->
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto bg-dark fixed-top py-2 top-navbar">
+              <div class="row align-items-center">
+                <div class="col-9">
+                  <h4 class="text-light text-uppercase mb-0">{{ title }}</h4>
+                </div>
+                
+                <div class="col-3">
+                  <ul class="navbar-nav">
+                    <li class="nav-item ml-md-auto">
+                      <a href="#" class="nav-link" data-toggle="modal" data-target="#sign-out"><i class="fas fa-sign-out-alt text-danger fa-lg"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--end of top nav-->
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!--end of navbar-->
+
+    <!--logout modal-->
+    <div class="modal fade" id="sign-out">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Want to leave?</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            Press logout to leave.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="logout-btn">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end of logout modal-->
+
+
+
+    <!-- delete item modal -->
+    <div class="modal fade" id="deleteItemModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Delete item?</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this item? This can't be undone.
+            <input type="text" id="item-id" style="display: none;">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="delete-item">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of delete item modal -->
+
+    <!--content-->
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <!--end of content-->
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/cms/script.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/cms/logout.js') }}"></script>
+  </body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+{% extends 'cms/_base.html' %}
+
+
+{% block content %}
+<!--cards-->
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+        <div class="row pt-md-5 mt-md-3 ml-3 mb-5" id="postListDiv" data-form-type="posts">
+          
+          {% for post in posts %}
+            <div class="col-xl-4 col-sm-12 p-2" id="card_{{ post._id }}">
+              <div class="card card-common">
+                <p class="small text-secondary mt-2 ml-2 postDate">{{ post._createdAt }}</p>
+                {% if post.coverImage %}
+                  <img src="{{ url_for('static', filename='images/posts/') + post.coverImage }}" class="card-img-top" alt="post image">
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">
+                    {{ post.title | truncate(100) | safe }}
+                    {% if post.active == False %}
+                      <p class="text-muted d-inline small">Inactive</p>
+                    {% endif %}
+                  </h5>
+                  <p class="card-text">{{ post.text | truncate(200) | safe }}</p>
+                  <p class="small text-secondary">{{ post.category | join(', ') }}</p>
+                  <a href="/cms/post/{{post._id}}" class="btn btn-primary btn-sm"><i class="fas fa-edit mr-2"></i>Edit</a>
+                  <a class="btn btn-danger text-light btn-sm deleteBtn" data-item-id="{{ post._id }}" data-resource="posts" data-toggle="modal" data-target="#deleteItemModal"><i class="fas fa-trash mr-2"></i>Delete</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--end of cards-->
+<script type="module" src="{{ url_for('static', filename='js/cms/infiniteLoad.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/cms/postCRUD.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/cms/deleteItem.js') }}"></script>
+{% endblock content %}
+
+
+
+
