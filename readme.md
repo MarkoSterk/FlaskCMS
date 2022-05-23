@@ -16,6 +16,8 @@ It has many features like:
     A simple test purchase can be made at the /products endpoint using the standard stripe payment form input data
     https://full-flask-cms.herokuapp.com/ or https://full-flask-cms.herokuapp.com/products
 
+    You must be signed in to do a purchase (see login details below)
+
 - custom schema-validation for MongoDB with very simple implementation, error handling and error messaging
 
 - basic register/login functionality and user authentication with JWT
