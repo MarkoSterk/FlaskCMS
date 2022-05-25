@@ -12,7 +12,7 @@ class Config:
     JWT_TOKEN_LOCATION=["cookies"]
     JWT_COOKIE_SECURE=False
     JWT_CSRF_IN_COOKIES=True
-    JWT_COOKIE_CSRF_PROTECT =False ###Should be set to True when in production
+    JWT_COOKIE_CSRF_PROTECT =True ###Should be set to True when in production
     JWT_ACCESS_TOKEN_EXPIRES=timedelta(hours=90) ##expiration duration of access tokens
 
     PASS_RESET_TOKEN_DURATION = '600000' ##expiration duration of password reset token

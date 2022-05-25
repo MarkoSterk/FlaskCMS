@@ -1,5 +1,6 @@
 import { showMessage }  from './statusMessage.js';
 import {populateFieldErrors} from './fieldErrors.js';
+import {readTags} from './tags.js';
 
 let data = new FormData();
 
@@ -30,6 +31,9 @@ function loadFormData(data){
             data.append('category', catList.join(','))
         }
     }
+
+    let tags = readTags();
+    console.log(tags);
 
     return data
 }

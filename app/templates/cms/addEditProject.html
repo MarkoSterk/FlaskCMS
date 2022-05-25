@@ -62,13 +62,25 @@
                             <textarea class="summernote form-control" id="textSlo" name="editordata">{% if project %} {{ project.textSlo }} {% endif %}</textarea>
                           </div>
 
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-2">
+                                <input type="text" class="form-control mb-1" id="tagsInput" placeholder="Tags...">
+                              </div>
+                              <div class="col-10">
+                                <div id="tagsList">
+                                  
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                           <p class="text-muted small">* required fields</p>
                           {% if project %}
                             <button type="button" class="btn btn-primary" id="submitEditForm" data-post-id={{ project._id }} data-form-type="projects">Edit</button>
                           {% else %}
                             <button type="button" class="btn btn-primary" id="submitForm" data-form-type="projects">Submit</button>
                           {% endif %}
-                          <button type="button" class="btn btn-warning" id="resetForm">Reset</button>
                       </div>
                   </div>
               </div>
@@ -80,6 +92,7 @@
 </section>
 
 <script type="module" src="{{ url_for('static', filename='js/cms/postCRUD.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/cms/tags.js') }}"></script>
 <script>
   function initializeSummerNote(id, placeholder, tabsize=2, height=400){
     $(`#${id}`).summernote({
