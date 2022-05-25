@@ -61,17 +61,17 @@ def updatePassword(userId):
     if not bcrypt.check_password_hash(user.password, data['currentPassword']):
         return AppError('Current password does not match the database', 401)
 
-    user.update({'$set': {'password': data['newPassword'],
-                'passwordConfirm': data['confirmNewPassword'],
-                'passwordChangedAt': datetime.utcnow().strftime('%Y-%m-%d %H:%M')}},
-                pre_hooks=[user.hashpw])
+    # user.update({'$set': {'password': data['newPassword'],
+    #             'passwordConfirm': data['confirmNewPassword'],
+    #             'passwordChangedAt': datetime.utcnow().strftime('%Y-%m-%d %H:%M')}},
+    #             pre_hooks=[user.hashpw])
 
     access_token = create_access_token(identity=user._id)
 
     response = jsonify({
             'status': 'success',
             'data': None,
-            'message': 'Password updated successfully',
+            'message': 'Password change is not allowed in demo.',
             'access_token': access_token
         })
     set_access_cookies(response, access_token)
@@ -123,15 +123,15 @@ def resetPassword(reset_token):
         return AppError('Missing password or password confirm field.', 400)
     password, passwordConfirm = data['password'], data['passwordConfirm']
 
-    user.update({'$set': {'password': password, 'passwordConfirm': passwordConfirm},
-                '$unset': {'passwordResetToken': '',
-                            'tokenExpires': ''}}, pre_hooks=[user.hashpw]
-                )
+    # user.update({'$set': {'password': password, 'passwordConfirm': passwordConfirm},
+    #             '$unset': {'passwordResetToken': '',
+    #                         'tokenExpires': ''}}, pre_hooks=[user.hashpw]
+    #             )
 
     return jsonify({
         'status': 'success',
         'data': None,
-        'message': 'Password was reset successfully'
+        'message': 'Password reset is not allowed in demo.'
     }), 200
 
 ####after request controllers
