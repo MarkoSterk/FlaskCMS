@@ -47,7 +47,13 @@
                               </div>
                               <div class="col-10">
                                 <div id="tagsList">
-                                  
+                                  {% if publication %}
+                                    {% if publication.tags %}
+                                      {% for tag in publication.tags %}
+                                        <button class="btn btn-secondary mx-1" type="button"><span class="tagText mr-1">{{ tag }}</span><span class="closeTag ml-1">&#10006;</span></button>
+                                      {% endfor %}
+                                    {% endif %}
+                                  {% endif %}
                                 </div>
                               </div>
                             </div>

@@ -19,6 +19,9 @@ def createOne():
     
     if 'text' in data: data['text']=textToHtmlParser(data['text'])
 
+    if 'tags' in data:
+        data['tags'] = data['tags'].split(',') if ',' in data['tags'] else [data['tags']]
+
     data=Gallery.filterData(data)
 
     data['author'] = current_user._id
@@ -66,6 +69,9 @@ def updateOne(galleryId):
         delattr(gallery, 'coverImage')
     
     if 'text' in data: data['text']=textToHtmlParser(data['text'])
+
+    if 'tags' in data:
+        data['tags'] = data['tags'].split(',') if ',' in data['tags'] else [data['tags']]
 
     data=Gallery.filterData(data)
     operation = setPostOperation(data)

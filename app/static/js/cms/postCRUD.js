@@ -1,6 +1,6 @@
 import { showMessage }  from './statusMessage.js';
 import {populateFieldErrors} from './fieldErrors.js';
-import {readTags} from './tags.js';
+import {readTags, loadTags} from './tags.js';
 
 let data = new FormData();
 
@@ -33,7 +33,8 @@ function loadFormData(data){
     }
 
     let tags = readTags();
-    console.log(tags);
+    tags = tags.join(',')
+    data.append('tags', tags)
 
     return data
 }
@@ -73,24 +74,6 @@ function submitForm(requestType, formType, postId='') {
 
 }
 
-
-// export function deletePost(postId, formType){
-//     window.scrollTo(0,0);
-//     axios.delete(
-//         `/api/v1/${formType}/${postId}`
-//     )
-//     .then(function (response) {
-//         if(response.status == 204){
-//             showMessage('Deleted successfully', 'success')
-//             var elem = document.getElementById(`card_${postId}`);
-//             elem.parentNode.removeChild(elem);
-//         }
-//     })
-//     .catch(function (error) {
-//         showMessage(error.response.data.message, error.response.data.status)
-//     });
-// }
-
 function removeCoverImage(){
     document.getElementById('previewImage').src='';
     document.getElementById('coverImage').style.display='block';
@@ -120,13 +103,6 @@ if(document.getElementById('submitEditForm')){
     });
 }
 
-if(document.getElementById('resetForm')){
-    const resetBtn = document.getElementById('resetForm');
-    resetBtn.addEventListener('click', function() {
-        document.getElementById('postForm').reset();
-    })
-}
-
 
 if(document.getElementById('removeImage')){
     const removeImgBtn = document.getElementById('removeImage');
@@ -150,11 +126,4 @@ if(document.getElementById('coverImage')){
     });
 }
 
-// if(location.href.endsWith('/projects') || location.href.endsWith('/posts') || location.href.endsWith('/publications') || location.href.endsWith('galleries')){
-//     const delBtns = document.getElementsByClassName('deleteBtn');
-//     for(let btn of delBtns){
-//         btn.addEventListener('click', function() {
-//             deletePost(this.dataset.postId, this.dataset.formType);
-//         });
-//     }
-// }
+loadTags();

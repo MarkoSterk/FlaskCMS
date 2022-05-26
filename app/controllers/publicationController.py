@@ -21,6 +21,9 @@ def createOne():
 
     if 'text' in data: data['text']=textToHtmlParser(data['text'])
 
+    if 'tags' in data:
+        data['tags'] = data['tags'].split(',') if ',' in data['tags'] else [data['tags']]
+
     if 'coverImage' in data:
         if data['coverImage']=='_DELETE':
             del data['coverImage'] 
@@ -59,6 +62,9 @@ def updateOne(publicationId):
         data['coverImage']=saveImageFiles(request.files.getlist('coverImage'), folder='publications')[0]
     
     if 'text' in data: data['text']=textToHtmlParser(data['text'])
+
+    if 'tags' in data:
+        data['tags'] = data['tags'].split(',') if ',' in data['tags'] else [data['tags']]
     
     data['dateEdited'] = datetime.now().strftime("%d-%m-%Y %H:%M")
 

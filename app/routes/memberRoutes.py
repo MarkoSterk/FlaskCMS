@@ -10,10 +10,6 @@ memberRoutes = Blueprint('memberRoutes', __name__)
 def getAll():
     return handlerFactory.getAll(Member)
 
-@memberRoutes.route('/api/v1/members/getN', methods=['GET'])
-def getN():
-    return handlerFactory.getN(Member)
-
 @memberRoutes.route('/api/v1/members/<string:memberId>', methods=['GET'])
 def getOne(memberId):
     return handlerFactory.getOne(memberId, Member,

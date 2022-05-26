@@ -46,7 +46,13 @@
                               </div>
                               <div class="col-10">
                                 <div id="tagsList">
-                                  
+                                  {% if post %}
+                                    {% if post.tags %}
+                                      {% for tag in post.tags %}
+                                        <button class="btn btn-secondary mx-1" type="button"><span class="tagText mr-1">{{ tag }}</span><span class="closeTag ml-1">&#10006;</span></button>
+                                      {% endfor %}
+                                    {% endif %}
+                                  {% endif %}
                                 </div>
                               </div>
                             </div>
@@ -54,9 +60,9 @@
                           
                           <p class="text-muted small">* required fields</p>
                           {% if post %}
-                            <button type="button" class="btn btn-primary" id="submitEditForm" data-post-id={{ post._id }}>Edit</button>
+                            <button type="button" class="btn btn-primary" id="submitEditForm" data-form-type="posts" data-post-id={{ post._id }}>Edit</button>
                           {% else %}
-                            <button type="button" class="btn btn-primary" id="submitForm">Submit</button>
+                            <button type="button" class="btn btn-primary" id="submitForm" data-form-type="posts">Submit</button>
                           {% endif %}
                       </div>
                   </div>

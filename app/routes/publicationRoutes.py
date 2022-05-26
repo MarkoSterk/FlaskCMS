@@ -10,10 +10,7 @@ publicationRoutes = Blueprint('publicationRoutes', __name__)
 @publicationRoutes.route('/api/v1/publications', methods=['GET'])
 def getAll():
     return handlerFactory.getAll(Publication)
-
-@publicationRoutes.route('/api/v1/publications/getN', methods=['GET'])
-def getN():
-    return handlerFactory.getN(Publication)
+    
 
 @publicationRoutes.route('/api/v1/publications/<string:publicationId>', methods=['GET'])
 def getOne(publicationId):

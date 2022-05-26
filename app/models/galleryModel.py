@@ -41,6 +41,13 @@ class Gallery(Model):
             'required': True,
             'default': 'default.png'
         },
+        'tags': {
+            'type': list,
+            'validators': [
+                (Validator.checkElementsType, (str))
+            ],
+            'required': False
+        },
         'slug': {
             'type': str,
             'required': False

@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, current_user
 from ..models.userModel import User
 from ..models.postModel import Post
 from ..controllers import postController

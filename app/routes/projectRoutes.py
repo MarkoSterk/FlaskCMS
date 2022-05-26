@@ -11,10 +11,6 @@ projectRoutes = Blueprint('projectRoutes', __name__)
 def getAll():
     return handlerFactory.getAll(Project)
 
-@projectRoutes.route('/api/v1/projects/getN', methods=['GET'])
-def getN():
-    return handlerFactory.getN(Project)
-
 @projectRoutes.route('/api/v1/projects/<string:projectId>', methods=['GET'])
 def getOne(projectId):
     return handlerFactory.getOne(projectId, Project,

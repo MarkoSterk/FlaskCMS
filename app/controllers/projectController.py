@@ -17,6 +17,9 @@ def createOne():
     if 'text' in data: data['text']=textToHtmlParser(data['text'])
     if 'textSlo' in data: data['textSlo']=textToHtmlParser(data['textSlo'])
 
+    if 'tags' in data:
+        data['tags'] = data['tags'].split(',') if ',' in data['tags'] else [data['tags']]
+
     if 'coverImage' in data:
         if data['coverImage']=='_DELETE':
             del data['coverImage'] 
@@ -52,6 +55,9 @@ def updateOne(projectId):
     
     if 'text' in data: data['text']=textToHtmlParser(data['text'])
     if 'textSlo' in data: data['textSlo']=textToHtmlParser(data['textSlo'])
+
+    if 'tags' in data:
+        data['tags'] = data['tags'].split(',') if ',' in data['tags'] else [data['tags']]
 
     operation = setPostOperation(data)
     project.update(operation)

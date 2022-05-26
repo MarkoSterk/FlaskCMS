@@ -124,7 +124,7 @@ def createPublications():
 @jwt_required()
 def updatePublications(publicationId):
     publication=Publication.findOne({'_id': publicationId})
-    return render_template('cms/addEditPublication.html', publication=publication, user=current_user, title='Add Publication')
+    return render_template('cms/addEditPublication.html', publication=publication, user=current_user, title='Edit Publication')
 
 
 #####end of publication routes#########

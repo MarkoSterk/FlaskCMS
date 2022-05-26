@@ -13,6 +13,9 @@ def createOne():
     if 'category' in data:
         data['category'] = data['category'].split(',') if ',' in data['category'] else [data['category']]
     
+    if 'tags' in data:
+        data['tags'] = data['tags'].split(',') if ',' in data['tags'] else [data['tags']]
+    
     if request.files:
         data['coverImage']=saveImageFiles(request.files.getlist('coverImage'), folder='posts', resize=False)[0]
 
@@ -50,6 +53,9 @@ def updateOne(postId):
 
     if 'category' in data.keys():
         data['category'] = data['category'].split(',') if ',' in data['category'] else [data['category']]
+    
+    if 'tags' in data:
+        data['tags'] = data['tags'].split(',') if ',' in data['tags'] else [data['tags']]
     
     if request.files:
         data['coverImage']=saveImageFiles(request.files.getlist('coverImage'), folder='posts', resize=(800, 0.38*500))[0]

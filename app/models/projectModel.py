@@ -68,6 +68,13 @@ class Project(Model):
             'type': str,
             'required': False
         },
+        'tags': {
+            'type': list,
+            'validators': [
+                (Validator.checkElementsType, (str))
+            ],
+            'required': False
+        },
         'slug': {
             'type': str,
             'required': False
